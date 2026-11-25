@@ -1,1 +1,1706 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مدرسه هوشمند | بهرالعلوم</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f0f3fa;color:#202943}
+header{height:110px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 25px;box-shadow:0 3px 15px #0000000b}
+.brand{display:flex;align-items:center;gap:15px;font-size:22px;font-weight:bold}
+.logo{width:64px;height:64px;border-radius:22px;background:linear-gradient(135deg,#5265f5,#8844df);display:flex;justify-content:center;align-items:center;color:#fff;font-size:30px}
+.logout{background:#edf0ff;color:#5363c8;border:0;padding:14px 20px;border-radius:16px;font-size:16px;font-weight:bold;cursor:pointer}
+.bluebar{height:90px;background:linear-gradient(110deg,#203f85,#354e9c)}
+.container{max-width:900px;margin:auto;padding:0 15px 30px;margin-top:-55px}
+.page-title{text-align:center;font-size:20px;margin:18px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.tile{min-height:220px;border:0;border-radius:28px;padding:20px;color:#fff;text-align:right;display:flex;flex-direction:column;align-items:flex-start;cursor:pointer;box-shadow:0 10px 20px #182c5515;transition:.15s}
+.tile:active{transform:scale(.97)}
+.tile .icon{width:70px;height:70px;border-radius:22px;background:#ffffff24;border:1px solid #ffffff44;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:15px}
+.tile h3{font-size:18px;margin:0 0 10px;color:#fff}
+.tile p{font-size:14px;line-height:1.7;color:#ffffffcf;margin:0 0 15px}
+.tile .enter{margin-top:auto;font-size:14px;font-weight:bold}
+.orange{background:linear-gradient(135deg,#ff7615,#c94b09)}
+.red{background:linear-gradient(135deg,#ed393b,#bd1729)}
+.blue{background:linear-gradient(135deg,#2867ef,#153ca9)}
+.purple{background:linear-gradient(135deg,#8754ed,#5520b5)}
+.pink{background:linear-gradient(135deg,#e42a83,#a90e56)}
+.green{background:linear-gradient(135deg,#07996c,#00664d)}
+.cyan{background:linear-gradient(135deg,#08b5d5,#08749e)}
+.hidden{display:none!important}
+.panel{background:#fff;border-radius:22px;padding:22px;box-shadow:0 8px 25px #0000000a;margin-bottom:20px}
+.panel h2{color:#293e80;text-align:center;margin-top:5px}
+input,select,textarea{width:100%;padding:14px;border:1px solid #dce2ef;border-radius:12px;margin:8px 0;background:#f7f8fc;font-family:Tahoma;font-size:14px;color:#26334e}
+textarea{min-height:100px;resize:vertical}
+.action{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,#536cf1,#7449dc);color:#fff;font-size:15px;font-weight:bold;margin-top:10px;cursor:pointer}
+.back{background:#e9edff;color:#5265c8}
+.error{color:#e53950;text-align:center}
+.student{padding:14px;background:#f3f5fc;border-radius:12px;margin:10px 0}
+.student strong{display:block;margin-bottom:8px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.top h2{color:#293e80;font-size:20px}
+table{width:100%;border-collapse:collapse;margin-top:12px;background:#fff}
+th,td{padding:10px 6px;border:1px solid #e2e6f0;text-align:center;font-size:12px}
+th{background:#344c9a;color:#fff}
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tab-btn{flex:1;padding:14px 8px;border:2px solid #dce2ef;border-radius:14px;background:#f7f8fc;color:#5265c8;font-family:Tahoma;font-size:14px;font-weight:bold;cursor:pointer}
+.tab-btn.active{background:linear-gradient(135deg,#536cf1,#7449dc);color:#fff;border-color:transparent}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.record-item{padding:12px;border-radius:12px;margin:8px 0}
+.record-item.neg{background:#fff1f2;border-right:5px solid #e53950}
+.record-item.pos{background:#fff7e6;border-right:5px solid #ff9f1c}
+.record-item .meta{font-size:11px;color:#8892b0;margin-top:5px}
+.record-item .reason{font-size:14px;color:#26334e}
 
+.glass-events{max-width:900px;margin:20px auto 0;padding:0 15px}
+.glass-event{background:rgba(255,255,255,0.7);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.5);border-radius:20px;padding:18px 22px;margin-bottom:12px;box-shadow:0 8px 25px rgba(82,101,245,0.1);display:flex;align-items:center;gap:15px;animation:slideDown 0.5s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+.glass-event .ev-icon{font-size:28px;flex-shrink:0}
+.glass-event .ev-body{flex:1}
+.glass-event .ev-title{font-weight:bold;color:#293e80;font-size:15px;margin-bottom:5px}
+.glass-event .ev-text{color:#5265c8;font-size:13px;line-height:1.7}
+
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(20,30,60,0.7);display:flex;justify-content:center;align-items:center;z-index:9999;padding:20px}
+.modal-box{background:#fff;border-radius:25px;padding:30px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-height:90vh;overflow:auto}
+.modal-box h3{color:#293e80;margin-top:0;font-size:20px}
+.modal-box .ev-content{background:#f3f5fc;padding:18px;border-radius:15px;margin:15px 0;color:#26334e;line-height:1.8;text-align:right}
+.vote-box{display:flex;flex-direction:column;gap:10px;margin-top:15px}
+.vote-option{display:flex;align-items:center;gap:12px;padding:14px;background:#f7f8fc;border:2px solid #dce2ef;border-radius:12px;cursor:pointer;transition:.2s;font-family:Tahoma}
+.vote-option:hover{border-color:#536cf1;background:#eef1ff}
+.vote-option input{width:auto;margin:0}
+.vote-option span{font-size:15px;color:#293e80;font-weight:bold}
+
+/* آزمون آنلاین */
+.timer-box{background:linear-gradient(135deg,#e53950,#b71c2b);color:#fff;padding:15px;border-radius:15px;text-align:center;font-size:22px;font-weight:bold;margin-bottom:15px;box-shadow:0 8px 20px rgba(229,57,80,0.3)}
+.timer-box.green{background:linear-gradient(135deg,#07996c,#00664d);box-shadow:0 8px 20px rgba(7,153,108,0.3)}
+.q-block{background:#fff;padding:14px;border-radius:12px;margin:10px 0;border-right:4px solid #536cf1}
+.q-block .q-text{font-weight:bold;color:#293e80;margin-bottom:8px}
+.q-block .q-score{font-size:11px;color:#8892b0;margin-top:4px}
+.exam-hint{background:#fff7e6;border:2px solid #ff9f1c;padding:14px;border-radius:12px;margin-bottom:15px;color:#c94b09;font-size:13px;line-height:1.8}
+.option-row{display:flex;align-items:center;gap:10px;padding:10px;background:#f7f8fc;border:1px solid #dce2ef;border-radius:10px;margin:6px 0;cursor:pointer}
+.option-row:hover{background:#eef1ff}
+.option-row input{width:auto;margin:0}
+.option-row span{font-size:14px;color:#26334e}
+
+.correct-answer-box{background:#f0fff4;border:2px solid #07996c;padding:12px;border-radius:10px;margin:8px 0;font-size:13px;color:#00664d}
+.answer-item{background:#f7f8fc;padding:10px;border-radius:8px;margin:6px 0;font-size:13px}
+.vote-stat{padding:12px;background:#eef1ff;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.vote-stat .vname{font-weight:bold;color:#293e80;font-size:14px}
+.vote-stat .vcount{background:#536cf1;color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<header>
+<button class="logout" id="btnLogout">خروج</button>
+<div class="brand"><span>مدرسه هوشمند</span><div class="logo">✦</div></div>
+</header>
+
+<div class="bluebar"></div>
+
+<div class="glass-events" id="glassEventsBox"></div>
+
+<div class="container">
+
+<section id="home">
+<h2 class="page-title">انتخاب پنل ورود</h2>
+<div class="grid">
+<button class="tile blue" id="btnStudent"><div class="icon">🎓</div><h3>ورود دانش‌آموز</h3><p>ورود به سامانه دانش‌آموزی</p><span class="enter">ورود به بخش ←</span></button>
+<button class="tile purple" id="btnTeacher"><div class="icon">👨‍🏫</div><h3>ورود دبیر</h3><p>مدیریت کلاس‌ها و ثبت نمرات</p><span class="enter">ورود به بخش ←</span></button>
+<button class="tile orange" id="btnAdmin"><div class="icon">👨‍💼</div><h3>ورود مدیر</h3><p>مدیریت کامل مدرسه</p><span class="enter">ورود به بخش ←</span></button>
+</div>
+</section>
+
+<section id="login" class="hidden">
+<div class="panel">
+<h2 id="loginTitle">ورود به سامانه</h2>
+<input id="username" placeholder="نام کاربری">
+<input id="password" type="password" placeholder="رمز عبور">
+<button class="action" id="btnLogin">ورود به حساب</button>
+<p class="error" id="error"></p>
+<button class="action back" id="btnBackHome">بازگشت</button>
+</div>
+</section>
+
+<section id="dashboard" class="hidden">
+<div class="top"><h2 id="welcome">پنل کاربری</h2><button class="logout" id="btnLogout2">خروج</button></div>
+<div id="tiles" class="grid"></div>
+</section>
+
+<section id="page" class="hidden">
+<div class="panel">
+<h2 id="pageTitle"></h2>
+<div id="pageContent"></div>
+<button class="action back" id="btnBackDash">بازگشت به پنل</button>
+</div>
+</section>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var role = '';
+  var currentUser = '';
+  var students = [];
+  var teachers = [];
+  var grades = {};
+  var attendance = {};
+  var discipline = {};
+  var scheduleData = {};
+  var exams = [];
+  var examAnswers = {};
+  var events = [];
+  var mandatoryEvents = [];
+  var examTimers = {};
+
+  try {
+    students = JSON.parse(localStorage.getItem('students')) || [];
+    teachers = JSON.parse(localStorage.getItem('teachers')) || [];
+    grades = JSON.parse(localStorage.getItem('grades')) || {};
+    attendance = JSON.parse(localStorage.getItem('attendance')) || {};
+    discipline = JSON.parse(localStorage.getItem('discipline')) || {};
+    scheduleData = JSON.parse(localStorage.getItem('schedule')) || {};
+    exams = JSON.parse(localStorage.getItem('exams')) || [];
+    examAnswers = JSON.parse(localStorage.getItem('examAnswers')) || {};
+    events = JSON.parse(localStorage.getItem('events')) || [];
+    mandatoryEvents = JSON.parse(localStorage.getItem('mandatoryEvents')) || [];
+  } catch(e) {}
+
+  var classes = ['701','702','801','802','901','902'];
+  var subjects = ['ریاضی','علوم تجربی','فارسی','نگارش','مطالعات اجتماعی','قرآن','پیام‌های آسمان','زبان انگلیسی','عربی','فرهنگ و هنر','تفکر و سبک زندگی','کار و فناوری','تربیت بدنی'];
+  var months = ['مهر','آبان','آذر','دی','بهمن','اسفند','فروردین','اردیبهشت','خرداد'];
+  var days = ['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه'];
+
+  function $(id) { return document.getElementById(id); }
+
+  function save() {
+    try {
+      localStorage.setItem('students', JSON.stringify(students));
+      localStorage.setItem('teachers', JSON.stringify(teachers));
+      localStorage.setItem('grades', JSON.stringify(grades));
+      localStorage.setItem('attendance', JSON.stringify(attendance));
+      localStorage.setItem('discipline', JSON.stringify(discipline));
+      localStorage.setItem('schedule', JSON.stringify(scheduleData));
+      localStorage.setItem('exams', JSON.stringify(exams));
+      localStorage.setItem('examAnswers', JSON.stringify(examAnswers));
+      localStorage.setItem('events', JSON.stringify(events));
+      localStorage.setItem('mandatoryEvents', JSON.stringify(mandatoryEvents));
+    } catch(e) {}
+  }
+
+  function show(id) {
+    var list = ['home','login','dashboard','page'];
+    for (var i = 0; i < list.length; i++) {
+      var el = $(list[i]);
+      if (el) el.classList.add('hidden');
+    }
+    var target = $(id);
+    if (target) target.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function renderGlassEvents() {
+    var box = $('glassEventsBox');
+    if (!box) return;
+    if (!events.length) { box.innerHTML = ''; return; }
+    var out = '';
+    for (var i = 0; i < events.length; i++) {
+      out += '<div class="glass-event">';
+      out += '<div class="ev-icon">📢</div>';
+      out += '<div class="ev-body">';
+      out += '<div class="ev-title">اطلاعیه مدرسه</div>';
+      out += '<div class="ev-text">' + events[i].text + '</div>';
+      out += '</div></div>';
+    }
+    box.innerHTML = out;
+  }
+
+  function checkMandatoryEvent() {
+    if (!mandatoryEvents.length) return;
+    var me = mandatoryEvents[0];
+    if (me.responses && me.responses[currentUser]) return;
+    
+    var overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.id = 'mandatoryModal';
+    
+    var inner = '<div class="modal-box">';
+    inner += '<h3>⚠️ رویداد الزامی</h3>';
+    inner += '<div class="ev-content">' + me.text + '</div>';
+    
+    if (me.options && me.options.length) {
+      inner += '<p style="color:#5265c8;font-size:13px;margin-top:10px">لطفاً یکی را انتخاب کنید:</p>';
+      inner += '<div class="vote-box">';
+      for (var i = 0; i < me.options.length; i++) {
+        inner += '<label class="vote-option">';
+        inner += '<input type="radio" name="mandatoryVote" value="' + i + '">';
+        inner += '<span>' + me.options[i] + '</span>';
+        inner += '</label>';
+      }
+      inner += '</div>';
+      inner += '<button class="action" style="background:linear-gradient(135deg,#07996c,#00664d);margin-top:15px" onclick="window.submitMandatory()">ثبت انتخاب</button>';
+    } else {
+      inner += '<button class="action" onclick="window.closeMandatory()">متوجه شدم</button>';
+    }
+    
+    inner += '</div>';
+    overlay.innerHTML = inner;
+    document.body.appendChild(overlay);
+  }
+
+  window.submitMandatory = function() {
+    var radios = document.querySelectorAll('input[name="mandatoryVote"]');
+    var selected = -1;
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) selected = i;
+    }
+    if (selected === -1) { alert('لطفاً یکی را انتخاب کنید'); return; }
+    
+    if (mandatoryEvents.length) {
+      var me = mandatoryEvents[0];
+      if (!me.responses) me.responses = {};
+      me.responses[currentUser] = selected;
+      save();
+    }
+    alert('انتخاب شما ثبت شد. با تشکر!');
+    window.closeMandatory();
+  };
+
+  window.closeMandatory = function() {
+    var m = $('mandatoryModal');
+    if (m) m.remove();
+  };
+
+  function loginPage(r) {
+    role = r;
+    var names = { student: 'ورود دانش‌آموز', teacher: 'ورود دبیر', admin: 'ورود مدیر' };
+    if ($('loginTitle')) $('loginTitle').innerText = names[r] || 'ورود';
+    if ($('username')) $('username').value = '';
+    if ($('password')) $('password').value = '';
+    if ($('error')) $('error').innerText = '';
+    show('login');
+  }
+
+  function login() {
+    var u = $('username') ? $('username').value.trim() : '';
+    var p = $('password') ? $('password').value.trim() : '';
+
+    if (u === 'آرتا' && p === 'آرتا') {
+      currentUser = 'آرتا';
+      openDashboard();
+      return;
+    }
+
+    if (role === 'student') {
+      for (var i = 0; i < students.length; i++) {
+        if (students[i].username === u && students[i].password === p) {
+          currentUser = u;
+          openDashboard();
+          return;
+        }
+      }
+    }
+
+    if (role === 'teacher') {
+      for (var t = 0; t < teachers.length; t++) {
+        if (teachers[t].username === u && teachers[t].password === p) {
+          currentUser = u;
+          openDashboard();
+          return;
+        }
+      }
+    }
+
+    if ($('error')) $('error').innerText = 'نام کاربری یا رمز عبور اشتباه است!';
+  }
+
+  function openDashboard() {
+    var titles = { student: 'پنل دانش‌آموز', teacher: 'پنل دبیر', admin: 'پنل مدیریت' };
+    if ($('welcome')) $('welcome').innerText = titles[role] || 'پنل کاربری';
+
+    var items = [];
+    var i;
+
+    if (role === 'student') {
+      items = [
+        ['کارنامه ماهیانه','گزارش ماهانه وضعیت درسی','📅','orange','report'],
+        ['ریز نمرات','جزئیات نمرات درس‌ها','📘','red','mygrades'],
+        ['کارنامه','جمع‌بندی تحصیلی','🏆','blue','report'],
+        ['فعالیت انضباطی','تشویق‌ها و تذکرها','🛡️','purple','discipline'],
+        ['دانش‌آموزان ممتاز','معرفی دانش‌آموزان برتر','🌟','pink','top'],
+        ['برنامه هفتگی','روزها و زنگ‌های درسی','🗓️','green','schedule'],
+        ['آزمون آنلاین','شرکت در آزمون‌های آنلاین','📝','red','exam'],
+        ['حضور و غیاب','مشاهده گزارش غیبت‌های خودت','☑️','red','myattendance']
+      ];
+    }
+
+    if (role === 'teacher') {
+      items = [
+        ['ثبت نمرات','ثبت نمرات دانش‌آموزان کلاس','📘','red','grades'],
+        ['حضور و غیاب','ثبت وضعیت حضور دانش‌آموزان','☑️','green','attendance'],
+        ['فهرست دانش‌آموزان','مشاهده دانش‌آموزان کلاس','🎓','blue','list'],
+        ['برنامه هفتگی','مشاهده برنامه هفتگی کلاس‌ها','🗓️','green','schedule'],
+        ['آزمون آنلاین','ثبت و مدیریت آزمون‌ها','📝','orange','exam'],
+        ['فعالیت انضباطی','ثبت تشویق و تذکر','🛡️','purple','discipline']
+      ];
+    }
+
+    if (role === 'admin') {
+      items = [
+        ['مدیریت کارنامه','ثبت نمرات ۱۳ درس و رتبه‌بندی','📋','green','reportcard'],
+        ['ثبت نمرات','مدیریت نمرات کلاس‌ها','📘','red','grades'],
+        ['حضور و غیاب','مدیریت حضور و غیاب','☑️','green','attendance'],
+        ['فهرست دانش‌آموزان','مشاهده دانش‌آموزان','🎓','blue','list'],
+        ['ساخت حساب دانش‌آموز','ایجاد حساب کاربری جدید','👨‍🎓','purple','create'],
+        ['مدیریت دبیران','افزودن و حذف دبیر','👨‍🏫','cyan','teachers'],
+        ['حذف دانش‌آموز','حذف دانش‌آموز از مدرسه','🗑️','red','delstudent'],
+        ['برنامه هفتگی','مدیریت برنامه هفتگی کلاس‌ها','🗓️','green','schedule'],
+        ['آزمون آنلاین','مدیریت آزمون‌ها','📝','orange','exam'],
+        ['فعالیت انضباطی','مدیریت فعالیت انضباطی','🛡️','pink','discipline'],
+        ['رویداد','ثبت اطلاعیه عادی','📢','cyan','event'],
+        ['رویداد الزامی','ثبت اطلاعیه مهم با رای‌گیری','⚠️','red','mandatory'],
+        ['آمار رأی‌گیری','مشاهده نتایج لحظه‌ای رأی‌گیری','📊','blue','votestats'],
+        ['حذف رویداد','حذف اطلاعیه عادی','🗑️','orange','delevent'],
+        ['حذف رویداد الزامی','حذف اطلاعیه مهم','🗑️','purple','delmandatory']
+      ];
+    }
+
+    var html = '';
+    for (i = 0; i < items.length; i++) {
+      var it = items[i];
+      html += '<button class="tile ' + it[3] + '" data-action="' + it[4] + '">';
+      html += '<div class="icon">' + it[2] + '</div>';
+      html += '<h3>' + it[0] + '</h3>';
+      html += '<p>' + it[1] + '</p>';
+      html += '<span class="enter">ورود به بخش ←</span>';
+      html += '</button>';
+    }
+    if ($('tiles')) {
+      $('tiles').innerHTML = html;
+      bindTileClicks();
+    }
+    show('dashboard');
+  }
+
+  function bindTileClicks() {
+    var tiles = document.querySelectorAll('#tiles .tile');
+    for (var i = 0; i < tiles.length; i++) {
+      tiles[i].onclick = function() {
+        var t = this.getAttribute('data-action');
+        openPage(t);
+      };
+    }
+  }
+
+  function openPage(type) {
+    show('page');
+    var title = '';
+    var html = '';
+    var i, j;
+
+    if (type === 'grades' || type === 'attendance' || type === 'list') {
+      if (type === 'grades') title = 'ثبت نمرات';
+      else if (type === 'attendance') title = 'حضور و غیاب';
+      else title = 'فهرست دانش‌آموزان';
+
+      html += '<label>کلاس چند؟</label>';
+      html += '<select id="classSelect">';
+      html += '<option value="">انتخاب کلاس</option>';
+      for (i = 0; i < classes.length; i++) html += '<option>' + classes[i] + '</option>';
+      html += '</select>';
+      html += '<label>درس چی؟</label>';
+      html += '<select id="subjectSelect">';
+      html += '<option value="">انتخاب درس</option>';
+      for (j = 0; j < subjects.length; j++) html += '<option>' + subjects[j] + '</option>';
+      html += '</select>';
+      html += '<div id="studentList"></div>';
+    }
+
+    if (type === 'create') {
+      title = 'ساخت حساب دانش‌آموز';
+      html += '<input id="newName" placeholder="نام و نام خانوادگی">';
+      html += '<input id="newUsername" placeholder="نام کاربری">';
+      html += '<input id="newPassword" placeholder="رمز عبور">';
+      html += '<select id="newClass"><option value="">انتخاب کلاس</option>';
+      for (i = 0; i < classes.length; i++) html += '<option>' + classes[i] + '</option>';
+      html += '</select>';
+      html += '<button class="action" id="btnCreate">ساخت حساب</button>';
+      html += '<div id="result"></div>';
+    }
+
+      if (type === 'mygrades' || type === 'report') {
+    title = (type === 'report') ? 'کارنامه' : 'ریز نمرات';
+    var st = null;
+    for (i = 0; i < students.length; i++) if (students[i].username === currentUser) st = students[i];
+    html = (type === 'report') ? renderMyReportCard(st) : renderMyGrades(st);
+  }
+
+  if (type === 'myattendance') {
+    title = 'حضور و غیاب من';
+    var st2 = null;
+    for (i = 0; i < students.length; i++) if (students[i].username === currentUser) st2 = students[i];
+    html = renderMyAttendance(st2);
+  }
+
+  if (type === 'schedule') { title = 'برنامه هفتگی'; html = renderSchedule(); }
+  if (type === 'exam') { title = 'آزمون آنلاین'; html = renderExam(); }
+  if (type === 'top') { title = 'دانش‌آموزان ممتاز'; html = renderTopStudents(); }
+  if (type === 'discipline') { title = 'فعالیت انضباطی'; html = renderDiscipline(); }
+  if (type === 'reportcard') { title = 'مدیریت کارنامه'; html = renderReportCardAdmin(); }
+  if (type === 'teachers') { title = 'مدیریت دبیران'; html = renderTeachersAdmin(); }
+  if (type === 'delstudent') { title = 'حذف دانش‌آموز'; html = renderDeleteStudent(); }
+  if (type === 'event') { title = 'ثبت رویداد'; html = renderEventAdmin(false); }
+  if (type === 'mandatory') { title = 'ثبت رویداد الزامی'; html = renderEventAdmin(true); }
+  if (type === 'votestats') { title = 'آمار رأی‌گیری'; html = renderVoteStats(); }
+  if (type === 'delevent') { title = 'حذف رویداد'; html = renderDeleteEvent(false); }
+  if (type === 'delmandatory') { title = 'حذف رویداد الزامی'; html = renderDeleteEvent(true); }
+
+  if ($('pageTitle')) $('pageTitle').innerText = title;
+  if ($('pageContent')) $('pageContent').innerHTML = html;
+
+  if (type === 'grades' || type === 'attendance' || type === 'list') {
+    if ($('classSelect')) $('classSelect').onchange = function(){ loadStudents(type); };
+    if ($('subjectSelect')) $('subjectSelect').onchange = function(){ loadStudents(type); };
+  }
+  if (type === 'create' && $('btnCreate')) $('btnCreate').onclick = createStudent;
+  if (type === 'discipline') bindDisciplineEvents();
+  if (type === 'reportcard') bindReportCardEvents();
+  if (type === 'teachers') if ($('btnAddTeacher')) $('btnAddTeacher').onclick = addTeacher;
+  if (type === 'schedule') bindScheduleEvents();
+  if (type === 'exam') bindExamEvents();
+  if (type === 'event' || type === 'mandatory') bindEventAdminEvents(type === 'mandatory');
+}
+
+function bindDisciplineEvents() {
+  if ($('tabNegBtn')) $('tabNegBtn').onclick = function(){ switchTab('neg'); };
+  if ($('tabPosBtn')) $('tabPosBtn').onclick = function(){ switchTab('pos'); };
+  if ($('discClass')) $('discClass').onchange = loadDisciplineStudents;
+  if ($('discClassPos')) $('discClassPos').onchange = loadDisciplineStudentsPos;
+}
+
+function renderDiscipline() {
+  var isManager = (role === 'teacher' || role === 'admin');
+  var html = '';
+  var i;
+
+  html += '<div class="tabs">';
+  html += '<button class="tab-btn active" id="tabNegBtn">🔴 منفی انضباطی</button>';
+  html += '<button class="tab-btn" id="tabPosBtn">🟠 منفی درسی</button>';
+  html += '</div>';
+
+  html += '<div class="tab-content active" id="tabNeg">';
+  if (isManager) {
+    html += '<label>کلاس چند؟</label>';
+    html += '<select id="discClass">';
+    html += '<option value="">انتخاب کلاس</option>';
+    for (i = 0; i < classes.length; i++) html += '<option>' + classes[i] + '</option>';
+    html += '</select>';
+    html += '<div id="discStudents"></div>';
+  } else {
+    var s = null;
+    for (i = 0; i < students.length; i++) if (students[i].username === currentUser) s = students[i];
+    html += renderDisciplineList(s, 'neg');
+  }
+  html += '</div>';
+
+  html += '<div class="tab-content" id="tabPos">';
+  if (isManager) {
+    html += '<label>کلاس چند؟</label>';
+    html += '<select id="discClassPos">';
+    html += '<option value="">انتخاب کلاس</option>';
+    for (i = 0; i < classes.length; i++) html += '<option>' + classes[i] + '</option>';
+    html += '</select>';
+    html += '<div id="discStudentsPos"></div>';
+  } else {
+    var s2 = null;
+    for (i = 0; i < students.length; i++) if (students[i].username === currentUser) s2 = students[i];
+    html += renderDisciplineList(s2, 'pos');
+  }
+  html += '</div>';
+
+  return html;
+}
+
+function switchTab(which) {
+  var n1 = $('tabNeg'), p1 = $('tabPos'), nb = $('tabNegBtn'), pb = $('tabPosBtn');
+  if (!n1 || !p1 || !nb || !pb) return;
+  n1.classList.remove('active'); p1.classList.remove('active');
+  nb.classList.remove('active'); pb.classList.remove('active');
+  if (which === 'neg') { n1.classList.add('active'); nb.classList.add('active'); }
+  else { p1.classList.add('active'); pb.classList.add('active'); }
+}
+
+function renderDisciplineList(s, kind) {
+  if (!s) return '<p>حساب دانش‌آموزی پیدا نشد.</p>';
+  var all = discipline[s.username] || [];
+  var data = [];
+  for (var i = 0; i < all.length; i++) if (all[i].kind === kind) data.push(all[i]);
+  if (!data.length) return '<p style="text-align:center;color:#8892b0">هنوز موردی ثبت نشده است.</p>';
+  var cls = (kind === 'neg') ? 'neg' : 'pos';
+  var out = '';
+  for (var j = 0; j < data.length; j++) {
+    var r = data[j];
+    out += '<div class="record-item ' + cls + '">';
+    out += '<div class="reason">' + r.reason + '</div>';
+    out += '<div class="meta">' + r.date + ' — ثبت‌کننده: ' + r.by + '</div>';
+    out += '</div>';
+  }
+  return out;
+}
+
+function loadDisciplineStudents() {
+  var sel = $('discClass'), box = $('discStudents');
+  if (!sel || !box) return;
+  var cls = sel.value;
+  if (!cls) { box.innerHTML = ''; return; }
+  var list = [];
+  for (var i = 0; i < students.length; i++) if (students[i].class === cls) list.push(students[i]);
+  if (!list.length) { box.innerHTML = '<p>دانش‌آموزی برای این کلاس ثبت نشده است.</p>'; return; }
+
+  var out = '';
+  for (var j = 0; j < list.length; j++) {
+    var s = list[j];
+    var all = discipline[s.username] || [];
+    var recs = [];
+    for (var k = 0; k < all.length; k++) if (all[k].kind === 'neg') recs.push(all[k]);
+    var recHtml = '';
+    if (recs.length) {
+      for (var m = 0; m < recs.length; m++) recHtml += '<div class="record-item neg"><div class="reason">' + recs[m].reason + '</div><div class="meta">' + recs[m].date + '</div></div>';
+    } else recHtml = '<p style="font-size:12px;color:#8892b0;margin:5px 0">موردی ثبت نشده</p>';
+    out += '<div class="student" data-user="' + s.username + '">';
+    out += '<strong>' + s.name + '</strong>' + recHtml;
+    out += '<input class="neg-input" placeholder="علت منفی انضباطی">';
+    out += '<button class="action neg-add" style="background:linear-gradient(135deg,#e53950,#b71c2b)">ثبت منفی انضباطی</button>';
+    out += '</div>';
+  }
+  box.innerHTML = out;
+  var cards = box.querySelectorAll('.student');
+  for (var c = 0; c < cards.length; c++) {
+    (function(card){
+      var user = card.getAttribute('data-user');
+      var btn = card.querySelector('.neg-add');
+      if (btn) btn.onclick = function() {
+        var inp = card.querySelector('.neg-input');
+        if (!inp) return;
+        addDiscipline(user, 'neg', inp.value.trim());
+      };
+    })(cards[c]);
+  }
+}
+
+function loadDisciplineStudentsPos() {
+  var sel = $('discClassPos'), box = $('discStudentsPos');
+  if (!sel || !box) return;
+  var cls = sel.value;
+  if (!cls) { box.innerHTML = ''; return; }
+  var list = [];
+  for (var i = 0; i < students.length; i++) if (students[i].class === cls) list.push(students[i]);
+  if (!list.length) { box.innerHTML = '<p>دانش‌آموزی برای این کلاس ثبت نشده است.</p>'; return; }
+
+  var out = '';
+  for (var j = 0; j < list.length; j++) {
+    var s = list[j];
+    var all = discipline[s.username] || [];
+    var recs = [];
+    for (var k = 0; k < all.length; k++) if (all[k].kind === 'pos') recs.push(all[k]);
+    var recHtml = '';
+    if (recs.length) {
+      for (var m = 0; m < recs.length; m++) recHtml += '<div class="record-item pos"><div class="reason">' + recs[m].reason + '</div><div class="meta">' + recs[m].date + '</div></div>';
+    } else recHtml = '<p style="font-size:12px;color:#8892b0;margin:5px 0">موردی ثبت نشده</p>';
+    out += '<div class="student" data-user="' + s.username + '">';
+    out += '<strong>' + s.name + '</strong>' + recHtml;
+    out += '<input class="pos-input" placeholder="علت منفی درسی">';
+    out += '<button class="action pos-add" style="background:linear-gradient(135deg,#ff9f1c,#d97706)">ثبت منفی درسی</button>';
+    out += '</div>';
+  }
+  box.innerHTML = out;
+  var cards = box.querySelectorAll('.student');
+  for (var c = 0; c < cards.length; c++) {
+    (function(card){
+      var user = card.getAttribute('data-user');
+      var btn = card.querySelector('.pos-add');
+      if (btn) btn.onclick = function() {
+        var inp = card.querySelector('.pos-input');
+        if (!inp) return;
+        addDiscipline(user, 'pos', inp.value.trim());
+      };
+    })(cards[c]);
+  }
+}
+
+function addDiscipline(username, kind, reason) {
+  if (!reason) { alert('علت را وارد کنید'); return; }
+  if (!discipline[username]) discipline[username] = [];
+  discipline[username].push({
+    kind: kind,
+    reason: reason,
+    by: (role === 'admin') ? 'مدیر' : 'دبیر',
+    date: new Date().toLocaleDateString('fa-IR')
+  });
+  save();
+  alert('ثبت شد');
+  if (kind === 'neg') loadDisciplineStudents();
+  else loadDisciplineStudentsPos();
+}
+
+function createStudent() {
+  var n = $('newName'), u = $('newUsername'), p = $('newPassword'), c = $('newClass');
+  if (!n || !u || !p || !c) return;
+  var name = n.value.trim(), username = u.value.trim(), password = p.value, cls = c.value;
+  if (!name || !username || !password || !cls) { alert('تمام اطلاعات را وارد کنید'); return; }
+  for (var i = 0; i < students.length; i++) {
+    if (students[i].username === username) { alert('این نام کاربری قبلاً ثبت شده'); return; }
+  }
+  students.push({ name: name, username: username, password: password, class: cls });
+  save();
+  if ($('result')) $('result').innerText = 'حساب دانش‌آموز با موفقیت ساخته شد';
+}
+
+function loadStudents(type) {
+  var cs = $('classSelect'), ss = $('subjectSelect'), box = $('studentList');
+  if (!cs || !box) return;
+
+  var cls = cs.value;
+  var sub = ss ? ss.value : '';
+
+  if (!cls) { box.innerHTML = ''; return; }
+  if (type !== 'list' && !sub) { box.innerHTML = '<p>ابتدا درس را انتخاب کنید.</p>'; return; }
+
+  var list = [];
+  for (var i = 0; i < students.length; i++) if (students[i].class === cls) list.push(students[i]);
+  if (!list.length) { box.innerHTML = '<p>هنوز دانش‌آموزی برای این کلاس ثبت نشده است.</p>'; return; }
+
+  if (type === 'list') {
+    var h1 = '';
+    for (var a = 0; a < list.length; a++) h1 += '<div class="student"><strong>' + list[a].name + '</strong>کلاس ' + list[a].class + '</div>';
+    box.innerHTML = h1;
+    return;
+  }
+
+  if (type === 'grades') {
+    var h2 = '';
+    for (var b = 0; b < list.length; b++) {
+      h2 += '<div class="student" data-user="' + list[b].username + '">';
+      h2 += '<strong>' + list[b].name + '</strong>';
+      h2 += '<input class="grade-input" type="number" min="0" max="20" step="0.25" placeholder="نمره از ۲۰">';
+      h2 += '<button class="action grade-add">ثبت نمره</button>';
+      h2 += '</div>';
+    }
+    box.innerHTML = h2;
+    var cards = box.querySelectorAll('.student');
+    for (var c1 = 0; c1 < cards.length; c1++) {
+      (function(card){
+        var user = card.getAttribute('data-user');
+        var btn = card.querySelector('.grade-add');
+        if (btn) btn.onclick = function() {
+          var inp = card.querySelector('.grade-input');
+          if (!inp) return;
+          saveGrade(user, sub, inp.value);
+        };
+      })(cards[c1]);
+    }
+  }
+
+  if (type === 'attendance') {
+    var h3 = '';
+    for (var c2 = 0; c2 < list.length; c2++) {
+      h3 += '<div class="student">';
+      h3 += '<strong>' + list[c2].name + '</strong>';
+      h3 += '<label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:8px">';
+      h3 += '<input type="checkbox" class="att-absent" data-user="' + list[c2].username + '" style="width:auto;margin:0">';
+      h3 += '<span style="font-size:14px;color:#e53950">غایب بود</span>';
+      h3 += '</label>';
+      h3 += '</div>';
+    }
+    h3 += '<input type="date" id="attDate">';
+    h3 += '<button class="action" id="btnSaveAtt">ذخیره حضور و غیاب</button>';
+    box.innerHTML = h3;
+    if ($('btnSaveAtt')) $('btnSaveAtt').onclick = function(){ saveAttendance(cls, sub); };
+  }
+}
+
+function saveGrade(username, subject, value) {
+  if (value === '' || isNaN(Number(value)) || Number(value) < 0 || Number(value) > 20) {
+    alert('نمره باید بین صفر تا ۲۰ باشد'); return;
+  }
+  var s = null;
+  for (var i = 0; i < students.length; i++) if (students[i].username === username) s = students[i];
+  if (!grades[username]) grades[username] = [];
+  grades[username].push({ subject: subject, class: s ? s.class : '', value: value, month: months[0], date: new Date().toLocaleDateString('fa-IR') });
+  save();
+  alert('نمره با موفقیت ثبت شد');
+}
+
+function saveAttendance(cls, subject) {
+  var dEl = $('attDate');
+  if (!dEl) return;
+  var date = dEl.value;
+  if (!date) { alert('تاریخ را انتخاب کنید'); return; }
+  var checkboxes = document.querySelectorAll('.att-absent');
+  for (var i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      var user = checkboxes[i].getAttribute('data-user');
+      if (!attendance[user]) attendance[user] = [];
+      attendance[user].push({ date: date, subject: subject, status: 'absent' });
+    }
+  }
+  save();
+  alert('غیبت‌ها ذخیره شد');
+}
+
+function renderMyGrades(s) {
+  if (!s) return '<p>حساب دانش‌آموزی برای این کاربر ساخته نشده است.</p>';
+  var data = grades[s.username] || [];
+  if (!data.length) return '<p>هنوز نمره‌ای ثبت نشده است.</p>';
+
+  var out = '<table>';
+  out += '<tr><th>ماه</th><th>درس</th><th>کلاس</th><th>نمره</th><th>تاریخ</th></tr>';
+
+  var sorted = [];
+  for (var m = 0; m < months.length; m++) {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].month === months[m]) sorted.push(data[i]);
+    }
+  }
+  for (var k = 0; k < data.length; k++) {
+    if (!data[k].month) sorted.push(data[k]);
+  }
+
+  for (var j = 0; j < sorted.length; j++) {
+    var r = sorted[j];
+    out += '<tr><td>' + (r.month || '—') + '</td><td>' + r.subject + '</td><td>' + r.class + '</td><td>' + r.value + '</td><td>' + r.date + '</td></tr>';
+  }
+  out += '</table>';
+  return out;
+}
+
+function renderMyAttendance(s) {
+  if (!s) return '<p>حساب دانش‌آموزی پیدا نشد.</p>';
+  var data = attendance[s.username] || [];
+  if (!data.length) return '<p>هنوز غیبتی برای شما ثبت نشده است.</p>';
+  var rows = '';
+  for (var i = 0; i < data.length; i++) {
+    rows += '<tr><td>' + data[i].date + '</td><td>' + data[i].subject + '</td><td>غایب</td></tr>';
+  }
+  return '<table><tr><th>تاریخ</th><th>درس</th><th>وضعیت</th></tr>' + rows + '</table>';
+}
+
+// ================== برنامه هفتگی ==================
+
+function renderSchedule() {
+  var html = '';
+  var isManager = (role === 'admin');
+  var targetClass = '';
+  
+  if (role === 'student') {
+    var st = null;
+    for (var i = 0; i < students.length; i++) if (students[i].username === currentUser) st = students[i];
+    if (st) targetClass = st.class;
+  }
+
+  if (isManager || role === 'teacher') {
+    html += '<label>انتخاب کلاس:</label>';
+    html += '<select id="schClass" onchange="window.updateScheduleView()">';
+    html += '<option value="">انتخاب کلاس</option>';
+    for (var c = 0; c < classes.length; c++) html += '<option value="' + classes[c] + '">' + classes[c] + '</option>';
+    html += '</select>';
+    html += '<div id="scheduleTableBox" style="margin-top:20px;"></div>';
+    
+    if (isManager) {
+       html += '<button class="action" id="btnSaveSchedule" style="display:none;margin-top:15px;">ذخیره برنامه هفتگی</button>';
+    }
+  } else if (role === 'student') {
+    html += '<h3 style="text-align:center;color:#293e80">برنامه کلاس ' + targetClass + '</h3>';
+    html += '<div id="scheduleTableBox"></div>';
+  }
+
+  return html;
+}
+
+window.updateScheduleView = function() {
+  var cls = $('schClass') ? $('schClass').value : '';
+  if (!cls && role === 'student') {
+    var st = null;
+    for (var i = 0; i < students.length; i++) if (students[i].username === currentUser) st = students[i];
+    if (st) cls = st.class;
+  }
+  
+  var box = $('scheduleTableBox');
+  var saveBtn = $('btnSaveSchedule');
+  if (!box) return;
+
+  if (!cls) { box.innerHTML = ''; if (saveBtn) saveBtn.style.display = 'none'; return; }
+  if (saveBtn) saveBtn.style.display = 'block';
+
+  var clsData = scheduleData[cls] || {};
+  var out = '<table>';
+  out += '<tr><th>روز / زنگ</th><th>زنگ ۱</th><th>زنگ ۲</th><th>زنگ ۳</th><th>زنگ ۴</th></tr>';
+  
+  for (var d = 0; d < days.length; d++) {
+    var day = days[d];
+    out += '<tr><td style="background:#e9edff;font-weight:bold">' + day + '</td>';
+    
+    var dayData = clsData[day] || ['','','',''];
+    
+    for (var p = 0; p < 4; p++) {
+      var sub = dayData[p] || '';
+      if (role === 'admin') {
+        out += '<td><select class="sch-input" data-day="' + day + '" data-period="' + p + '" style="margin:0;padding:5px;font-size:12px;">';
+        out += '<option value="">-</option>';
+        for (var s = 0; s < subjects.length; s++) {
+          var selected = (sub === subjects[s]) ? ' selected' : '';
+          out += '<option value="' + subjects[s] + '"' + selected + '>' + subjects[s] + '</option>';
+        }
+        out += '</select></td>';
+      } else {
+        out += '<td>' + (sub || '-') + '</td>';
+      }
+    }
+    out += '</tr>';
+  }
+  
+  out += '</table>';
+  box.innerHTML = out;
+
+  if (saveBtn && role === 'admin') {
+    saveBtn.onclick = function() {
+      var newData = { 'شنبه': ['','','',''], 'یکشنبه': ['','','',''], 'دوشنبه': ['','','',''], 'سه‌شنبه': ['','','',''], 'چهارشنبه': ['','','',''] };
+      var inputs = document.querySelectorAll('.sch-input');
+      for (var i = 0; i < inputs.length; i++) {
+        var d = inputs[i].getAttribute('data-day');
+        var p = parseInt(inputs[i].getAttribute('data-period'));
+        newData[d][p] = inputs[i].value;
+      }
+      scheduleData[cls] = newData;
+      save();
+      alert('برنامه هفتگی کلاس ' + cls + ' ذخیره شد');
+    };
+  }
+};
+
+function bindScheduleEvents() {
+  if ($('schClass')) {
+     window.updateScheduleView();
+  } else if (role === 'student') {
+     window.updateScheduleView();
+  }
+}
+
+// ================== کارنامه ==================
+
+function renderReportCardAdmin() {
+  var html = '';
+  html += '<label>کلاس چند؟</label>';
+  html += '<select id="rcClass">';
+  html += '<option value="">انتخاب کلاس</option>';
+  for (var i = 0; i < classes.length; i++) html += '<option>' + classes[i] + '</option>';
+  html += '</select>';
+  html += '<label>ماه</label>';
+  html += '<select id="rcMonth">';
+  for (var j = 0; j < months.length; j++) html += '<option value="' + months[j] + '">' + months[j] + '</option>';
+  html += '</select>';
+  html += '<div id="rcStudents"></div>';
+  return html;
+}
+
+function loadReportCardStudents() {
+  var sel = $('rcClass');
+  var mSel = $('rcMonth');
+  var box = $('rcStudents');
+  if (!sel || !box) return;
+  var cls = sel.value;
+  var month = mSel ? mSel.value : months[0];
+  if (!cls) { box.innerHTML = ''; return; }
+
+  var list = [];
+  for (var i = 0; i < students.length; i++) if (students[i].class === cls) list.push(students[i]);
+  if (!list.length) { box.innerHTML = '<p>دانش‌آموزی برای این کلاس ثبت نشده است.</p>'; return; }
+
+  var out = '<h3 style="text-align:center;color:#293e80">کارنامه ماه ' + month + '</h3>';
+  for (var j = 0; j < list.length; j++) {
+    var s = list[j];
+    var existing = grades[s.username] || [];
+
+    out += '<div class="student" data-user="' + s.username + '">';
+    out += '<strong>' + s.name + '</strong>';
+
+    for (var k = 0; k < subjects.length; k++) {
+      var sub = subjects[k];
+      var val = '';
+      for (var m = 0; m < existing.length; m++) {
+        if (existing[m].subject === sub && existing[m].month === month) val = existing[m].value;
+      }
+            out += '<label style="font-size:12px;color:#5265c8;margin-top:6px;display:block">' + sub + '</label>';
+      out += '<input class="rc-grade" data-sub="' + sub + '" type="number" min="0" max="20" step="0.25" value="' + val + '" placeholder="نمره">';
+    }
+
+    out += '<button class="action rc-save" style="background:linear-gradient(135deg,#07996c,#00664d)">ذخیره نمرات ماه ' + month + ' برای این دانش‌آموز</button>';
+    out += '<div class="rc-avg" style="margin-top:10px;font-weight:bold;color:#293e80"></div>';
+    out += '</div>';
+  }
+  box.innerHTML = out;
+
+  var cards = box.querySelectorAll('.student');
+  for (var c = 0; c < cards.length; c++) {
+    (function(card){
+      var user = card.getAttribute('data-user');
+      var btn = card.querySelector('.rc-save');
+      if (btn) btn.onclick = function() {
+        saveReportCard(user, card, month);
+      };
+      updateCardAverage(card, month);
+      var inputs = card.querySelectorAll('.rc-grade');
+      for (var q = 0; q < inputs.length; q++) {
+        inputs[q].oninput = function(){ updateCardAverage(card, month); };
+      }
+    })(cards[c]);
+  }
+}
+
+function updateCardAverage(card, month) {
+  var inputs = card.querySelectorAll('.rc-grade');
+  var sum = 0, count = 0;
+  for (var i = 0; i < inputs.length; i++) {
+    var v = inputs[i].value;
+    if (v !== '' && !isNaN(Number(v))) { sum += Number(v); count++; }
+  }
+  var avgEl = card.querySelector('.rc-avg');
+  if (avgEl) {
+    if (count === 0) avgEl.innerText = '';
+    else avgEl.innerText = 'معدل ماه ' + month + ': ' + (sum / count).toFixed(2) + ' (از ' + count + ' درس)';
+  }
+}
+
+function saveReportCard(username, card, month) {
+  var inputs = card.querySelectorAll('.rc-grade');
+  var s = null;
+  for (var i = 0; i < students.length; i++) if (students[i].username === username) s = students[i];
+  if (!s) return;
+
+  if (!grades[username]) grades[username] = [];
+
+  for (var j = 0; j < inputs.length; j++) {
+    var sub = inputs[j].getAttribute('data-sub');
+    var val = inputs[j].value.trim();
+
+    var newArr = [];
+    for (var k = 0; k < grades[username].length; k++) {
+      var g = grades[username][k];
+      if (!(g.subject === sub && g.month === month)) newArr.push(g);
+    }
+    grades[username] = newArr;
+
+    if (val !== '') {
+      if (isNaN(Number(val)) || Number(val) < 0 || Number(val) > 20) {
+        alert('نمره ' + sub + ' باید بین ۰ تا ۲۰ باشد');
+        return;
+      }
+      grades[username].push({
+        subject: sub,
+        class: s.class,
+        value: val,
+        month: month,
+        date: new Date().toLocaleDateString('fa-IR')
+      });
+    }
+  }
+  save();
+  alert('نمرات ' + s.name + ' برای ماه ' + month + ' ذخیره شد');
+}
+
+function calcAverage(username, month) {
+  var data = grades[username] || [];
+  if (!data.length) return 0;
+  var sum = 0, count = 0;
+  for (var i = 0; i < data.length; i++) {
+    if (month && data[i].month !== month) continue;
+    var v = Number(data[i].value);
+    if (!isNaN(v)) { sum += v; count++; }
+  }
+  return count ? (sum / count) : 0;
+}
+
+function getRank(username, cls, month) {
+  var list = [];
+  for (var i = 0; i < students.length; i++) {
+    if (students[i].class === cls) {
+      list.push({ username: students[i].username, avg: calcAverage(students[i].username, month) });
+    }
+  }
+  list.sort(function(a,b){ return b.avg - a.avg; });
+  for (var j = 0; j < list.length; j++) {
+    if (list[j].username === username) return j + 1;
+  }
+  return 0;
+}
+
+function getGradeLevel(cls) {
+  if (!cls) return '';
+  return cls.charAt(0);
+}
+
+function getRankInGrade(username, cls, month) {
+  var level = getGradeLevel(cls);
+  var list = [];
+  for (var i = 0; i < students.length; i++) {
+    var s = students[i];
+    if (getGradeLevel(s.class) === level) {
+      list.push({ username: s.username, avg: calcAverage(s.username, month) });
+    }
+  }
+  list.sort(function(a,b){ return b.avg - a.avg; });
+  for (var j = 0; j < list.length; j++) {
+    if (list[j].username === username) return j + 1;
+  }
+  return 0;
+}
+
+function renderMyReportCard(s) {
+  if (!s) return '<p>حساب دانش‌آموزی برای این کاربر ساخته نشده است.</p>';
+
+  var data = grades[s.username] || [];
+  if (!data.length) return '<p>هنوز نمره‌ای ثبت نشده است.</p>';
+
+  var html = '';
+  html += '<div style="text-align:center;margin-bottom:15px;padding:15px;background:#f3f5fc;border-radius:15px">';
+  html += '<div style="font-size:18px;font-weight:bold;color:#293e80">' + s.name + '</div>';
+  html += '<div style="font-size:14px;color:#5265c8;margin-top:5px">کلاس ' + s.class + '</div>';
+  html += '</div>';
+
+  html += '<div class="tabs" style="flex-wrap:wrap">';
+  for (var t = 0; t < months.length; t++) {
+    html += '<button class="tab-btn' + (t===0?' active':'') + '" data-month="' + months[t] + '" onclick="window.showMonthReport(\'' + months[t] + '\',this)">' + months[t] + '</button>';
+  }
+  html += '</div>';
+
+  html += '<div id="monthReportBox">';
+  html += buildMonthReport(data, months[0]);
+  html += '</div>';
+
+  var overallAvg = calcAverage(s.username);
+  var rankClass = getRank(s.username, s.class);
+  var rankGrade = getRankInGrade(s.username, s.class);
+
+  html += '<div style="margin-top:15px;padding:15px;background:linear-gradient(135deg,#e9edff,#f0f3fa);border-radius:15px;text-align:center">';
+  html += '<div style="font-size:15px;color:#293e80;font-weight:bold;margin-bottom:10px">📊 معدل کل: ' + overallAvg.toFixed(2) + '</div>';
+  html += '<div style="display:flex;justify-content:space-around;flex-wrap:wrap;gap:10px">';
+  html += '<div style="flex:1;min-width:100px;padding:10px;background:#fff;border-radius:12px"><div style="font-size:20px;font-weight:bold;color:#536cf1">' + rankClass + '</div><div style="font-size:12px;color:#8892b0;margin-top:3px">رتبه در کلاس</div></div>';
+  html += '<div style="flex:1;min-width:100px;padding:10px;background:#fff;border-radius:12px"><div style="font-size:20px;font-weight:bold;color:#8754ed">' + rankGrade + '</div><div style="font-size:12px;color:#8892b0;margin-top:3px">رتبه در پایه</div></div>';
+  html += '</div>';
+  html += '</div>';
+
+  return html;
+}
+
+function buildMonthReport(data, month) {
+  var out = '<table>';
+  out += '<tr><th>#</th><th>درس</th><th>نمره</th></tr>';
+  var sum = 0, count = 0;
+  for (var i = 0; i < subjects.length; i++) {
+    var sub = subjects[i];
+    var val = '—';
+    for (var j = 0; j < data.length; j++) {
+      if (data[j].subject === sub && data[j].month === month) val = data[j].value;
+    }
+    if (val !== '—') { sum += Number(val); count++; }
+    out += '<tr><td>' + (i+1) + '</td><td>' + sub + '</td><td>' + val + '</td></tr>';
+  }
+  out += '</table>';
+
+  var avg = count ? (sum / count) : 0;
+  out += '<div style="margin-top:15px;padding:15px;background:#e9edff;border-radius:15px;text-align:center">';
+  out += '<div style="font-size:16px;color:#293e80;font-weight:bold">معدل ' + month + ': ' + avg.toFixed(2) + '</div>';
+  out += '</div>';
+  return out;
+}
+
+function showMonthReport(month, btn) {
+  var s = null;
+  for (var i = 0; i < students.length; i++) if (students[i].username === currentUser) s = students[i];
+  if (!s) return;
+  var data = grades[s.username] || [];
+
+  var btns = document.querySelectorAll('#pageContent .tab-btn');
+  for (var b = 0; b < btns.length; b++) btns[b].classList.remove('active');
+  if (btn) btn.classList.add('active');
+
+  var box = $('monthReportBox');
+  if (box) box.innerHTML = buildMonthReport(data, month);
+}
+
+function bindReportCardEvents() {
+  if ($('rcClass')) $('rcClass').onchange = loadReportCardStudents;
+  if ($('rcMonth')) $('rcMonth').onchange = loadReportCardStudents;
+}
+
+// ================== دانش‌آموزان ممتاز ==================
+
+function renderTopStudents() {
+  var html = '';
+  html += '<p style="text-align:center;color:#5265c8;margin-bottom:15px">برترین‌های هر کلاس بر اساس معدل کل</p>';
+
+  var hasAny = false;
+
+  for (var c = 0; c < classes.length; c++) {
+    var cls = classes[c];
+
+    var list = [];
+    for (var i = 0; i < students.length; i++) {
+      if (students[i].class === cls) {
+        var avg = calcAverage(students[i].username);
+        if (avg > 0) {
+          list.push({ name: students[i].name, avg: avg });
+        }
+      }
+    }
+
+    if (!list.length) continue;
+    hasAny = true;
+
+    list.sort(function(a,b){ return b.avg - a.avg; });
+    var top3 = list.slice(0, 3);
+
+    html += '<div style="margin-bottom:25px;padding:20px;background:linear-gradient(135deg,#f8f9ff,#eef1ff);border-radius:20px;box-shadow:0 5px 15px #0000000a">';
+    html += '<h3 style="color:#293e80;text-align:center;margin:0 0 15px;font-size:18px">کلاس ' + cls + '</h3>';
+    html += '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">';
+
+    var medals = ['🥇','🥈','🥉'];
+    var colors = [
+      'linear-gradient(135deg,#ffd700,#ffa500)',
+      'linear-gradient(135deg,#c0c0c0,#808080)',
+      'linear-gradient(135deg,#cd7f32,#8b4513)'
+    ];
+    var bgColors = ['#fffbe6','#f5f5f5','#fdf2e6'];
+    var borderColors = ['#ffd700','#c0c0c0','#cd7f32'];
+
+    for (var t = 0; t < top3.length; t++) {
+      var p = top3[t];
+      html += '<div style="flex:1;min-width:120px;max-width:160px;text-align:center;padding:15px 10px;background:' + bgColors[t] + ';border-radius:18px;border:2px solid ' + borderColors[t] + '">';
+      html += '<div style="font-size:36px;margin-bottom:5px">' + medals[t] + '</div>';
+      html += '<div style="font-size:13px;font-weight:bold;color:#293e80;margin-bottom:8px;min-height:36px">' + p.name + '</div>';
+      html += '<div style="display:inline-block;padding:6px 14px;border-radius:20px;background:' + colors[t] + ';color:#fff;font-size:13px;font-weight:bold">' + p.avg.toFixed(2) + '</div>';
+      html += '<div style="font-size:11px;color:#8892b0;margin-top:6px">معدل</div>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+    html += '</div>';
+  }
+
+  if (!hasAny) {
+    html = '<p style="text-align:center;color:#8892b0">هنوز نمره‌ای ثبت نشده است.</p>';
+  }
+
+  return html;
+}
+
+// ================== مدیریت دبیران ==================
+
+function renderTeachersAdmin() {
+  var html = '';
+  
+  html += '<div style="background:#f3f5fc;padding:15px;border-radius:12px;margin-bottom:20px">';
+  html += '<h3 style="color:#293e80;margin:0 0 10px">افزودن دبیر جدید</h3>';
+  html += '<input id="tName" placeholder="نام و نام خانوادگی دبیر">';
+  html += '<input id="tUsername" placeholder="نام کاربری">';
+  html += '<input id="tPassword" placeholder="رمز عبور">';
+  html += '<button class="action" id="btnAddTeacher" style="background:linear-gradient(135deg,#07996c,#00664d)">ثبت دبیر</button>';
+  html += '</div>';
+
+  html += '<h3 style="color:#293e80;text-align:center">لیست دبیران</h3>';
+  if (!teachers.length) {
+    html += '<p style="text-align:center;color:#8892b0">هنوز دبیری ثبت نشده است.</p>';
+  } else {
+    for (var i = 0; i < teachers.length; i++) {
+      var t = teachers[i];
+      html += '<div class="student" style="display:flex;justify-content:space-between;align-items:center">';
+      html += '<div><strong>' + t.name + '</strong><span style="font-size:12px;color:#8892b0">نام کاربری: ' + t.username + '</span></div>';
+      html += '<button class="action" style="width:auto;padding:8px 15px;margin:0;background:linear-gradient(135deg,#e53950,#b71c2b)" onclick="window.deleteTeacher(\'' + t.username + '\')">حذف</button>';
+      html += '</div>';
+    }
+  }
+  return html;
+}
+
+function addTeacher() {
+  var n = $('tName'), u = $('tUsername'), p = $('tPassword');
+  if (!n || !u || !p) return;
+  
+  var name = n.value.trim();
+  var username = u.value.trim();
+  var password = p.value;
+
+  if (!name || !username || !password) {
+    alert('همه فیلدها را پر کنید'); return;
+  }
+
+  for (var i = 0; i < teachers.length; i++) {
+    if (teachers[i].username === username) {
+      alert('این نام کاربری برای دبیر دیگری ثبت شده است'); return;
+    }
+  }
+
+  teachers.push({ name: name, username: username, password: password });
+  save();
+  alert('دبیر با موفقیت اضافه شد');
+  openPage('teachers');
+}
+
+window.deleteTeacher = function(username) {
+  if (!confirm('آیا از حذف این دبیر مطمئن هستید؟')) return;
+  var newArr = [];
+  for (var i = 0; i < teachers.length; i++) {
+    if (teachers[i].username !== username) newArr.push(teachers[i]);
+  }
+  teachers = newArr;
+  save();
+  openPage('teachers');
+};
+
+// ================== حذف دانش‌آموز ==================
+
+function renderDeleteStudent() {
+  var html = '';
+  html += '<label>کلاس دانش‌آموز را انتخاب کنید:</label>';
+  html += '<select id="delClass" onchange="window.loadStudentsForDelete()">';
+  html += '<option value="">انتخاب کلاس</option>';
+  for (var i = 0; i < classes.length; i++) html += '<option>' + classes[i] + '</option>';
+  html += '</select>';
+  html += '<div id="delStudentList"></div>';
+  return html;
+}
+
+window.loadStudentsForDelete = function() {
+  var cls = $('delClass').value;
+  var box = $('delStudentList');
+  if (!box) return;
+
+  if (!cls) { box.innerHTML = ''; return; }
+
+  var list = [];
+  for (var i = 0; i < students.length; i++) {
+    if (students[i].class === cls) list.push(students[i]);
+  }
+
+  if (!list.length) {
+    box.innerHTML = '<p style="text-align:center;color:#8892b0">دانش‌آموزی در این کلاس نیست.</p>';
+    return;
+  }
+
+  var out = '';
+  for (var j = 0; j < list.length; j++) {
+    var s = list[j];
+    out += '<div class="student" style="display:flex;justify-content:space-between;align-items:center">';
+    out += '<div><strong>' + s.name + '</strong><span style="font-size:12px;color:#8892b0">نام کاربری: ' + s.username + '</span></div>';
+    out += '<button class="action" style="width:auto;padding:8px 15px;margin:0;background:linear-gradient(135deg,#e53950,#b71c2b)" onclick="window.deleteStudent(\'' + s.username + '\')">حذف</button>';
+    out += '</div>';
+  }
+  box.innerHTML = out;
+};
+
+window.deleteStudent = function(username) {
+  if (!confirm('آیا مطمئنید که می‌خواهید این دانش‌آموز را کاملاً حذف کنید؟ (نمرات او هم پاک می‌شوند)')) return;
+
+  var newStudents = [];
+  for (var i = 0; i < students.length; i++) {
+    if (students[i].username !== username) newStudents.push(students[i]);
+  }
+  students = newStudents;
+
+  delete grades[username];
+  delete attendance[username];
+  delete discipline[username];
+
+  save();
+  alert('دانش‌آموز حذف شد');
+  window.loadStudentsForDelete();
+};
+
+// ================== آزمون آنلاین ==================
+
+function renderExam() {
+  var isManager = (role === 'admin' || role === 'teacher');
+  var html = '';
+
+  if (isManager) {
+    html += '<div style="background:#f3f5fc;padding:15px;border-radius:12px;margin-bottom:20px">';
+    html += '<h3 style="color:#293e80;margin:0 0 10px">ایجاد آزمون جدید</h3>';
+    html += '<label>کلاس چند؟</label>';
+    html += '<select id="exClass">';
+    html += '<option value="">انتخاب کلاس</option>';
+    for (var i = 0; i < classes.length; i++) html += '<option>' + classes[i] + '</option>';
+    html += '</select>';
+    html += '<label>درس چی؟</label>';
+    html += '<select id="exSubject">';
+    html += '<option value="">انتخاب درس</option>';
+    for (var j = 0; j < subjects.length; j++) html += '<option>' + subjects[j] + '</option>';
+    html += '</select>';
+    html += '<label>مدت زمان آزمون (دقیقه):</label>';
+    html += '<input id="exDuration" type="number" placeholder="مثلاً 30">';
+    html += '<label>تاریخ شروع آزمون:</label>';
+    html += '<input id="exStartDate" type="datetime-local">';
+    html += '<input id="exTeacher" placeholder="نام معلم">';
+    html += '<label>سوالات و بارم (هر سوال در یک خط - فرمت: سوال | بارم | گزینه1 | گزینه2 | گزینه3 | گزینه4 | جواب_صحیح(1-4)):</label>';
+    html += '<textarea id="exQuestions" placeholder="سوال ۱؟ | 2 | الف | ب | ج | د | 1&#10;سوال ۲؟ | 3 | الف | ب | ج | د | 2"></textarea>';
+    html += '<button class="action" id="btnAddExam" style="background:linear-gradient(135deg,#07996c,#00664d)">ثبت آزمون</button>';
+    html += '</div>';
+  }
+
+  html += '<h3 style="color:#293e80;text-align:center">لیست آزمون‌ها</h3>';
+  if (!exams.length) {
+    html += '<p style="text-align:center;color:#8892b0">هنوز آزمونی ثبت نشده است.</p>';
+  } else {
+    for (var k = 0; k < exams.length; k++) {
+      var ex = exams[k];
+      html += '<div class="student">';
+      html += '<strong>' + ex.subject + ' - کلاس ' + ex.cls + '</strong>';
+      html += '<div style="font-size:13px;color:#5265c8;margin:6px 0">📅 شروع: ' + ex.startDate + '</div>';
+      html += '<div style="font-size:13px;color:#5265c8;margin:6px 0">⏱ مدت: ' + ex.duration + ' دقیقه</div>';
+      html += '<div style="font-size:13px;color:#5265c8;margin:6px 0">👨‍🏫 معلم: ' + ex.teacher + '</div>';
+      
+      var qs = ex.questions.split('\n');
+      html += '<div style="background:#fff;padding:10px;border-radius:8px;margin-top:8px;font-size:13px">سوالات:<br>';
+      for (var q = 0; q < qs.length; q++) {
+        var parts = qs[q].split('|');
+        html += '<div class="q-block"><div class="q-text">' + (q+1) + '. ' + parts[0].trim() + '</div>';
+        if (parts[1]) html += '<div class="q-score">بارم: ' + parts[1].trim() + ' نمره</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+      
+      if (!isManager && role === 'student') {
+        html += '<button class="action" style="background:linear-gradient(135deg,#07996c,#00664d);margin-top:10px" onclick="window.startExam(' + k + ')">شرکت در آزمون</button>';
+      }
+      
+      if (isManager) {
+        html += '<button class="action" style="background:linear-gradient(135deg,#536cf1,#7449dc);margin-top:10px" onclick="window.viewExamResults(' + k + ')">مشاهده پاسخ‌ها</button>';
+      }
+      
+      html += '</div>';
+    }
+  }
+
+  return html;
+}
+
+function bindExamEvents() {
+  if ($('btnAddExam')) $('btnAddExam').onclick = addExam;
+}
+
+function addExam() {
+  var cls = $('exClass').value;
+  var subject = $('exSubject').value;
+  var duration = $('exDuration').value.trim();
+  var startDate = $('exStartDate').value.trim();
+  var teacher = $('exTeacher').value.trim();
+  var questions = $('exQuestions').value.trim();
+
+  if (!cls || !subject || !duration || !startDate || !teacher || !questions) {
+    alert('همه فیلدها را پر کنید'); return;
+  }
+
+  exams.push({ cls: cls, subject: subject, duration: duration, startDate: startDate, teacher: teacher, questions: questions });
+  save();
+  alert('آزمون با موفقیت ثبت شد');
+  openPage('exam');
+}
+
+window.startExam = function(idx) {
+  var name = prompt('لطفاً نام و نام خانوادگی خود را وارد کنید:');
+  if (!name) return;
+  
+  var ex = exams[idx];
+  var matched = false;
+  for (var i = 0; i < students.length; i++) {
+    if (students[i].name === name && students[i].class === ex.cls) {
+      matched = true;
+      currentUser = students[i].username;
+      break;
+    }
+  }
+  if (!matched) { alert('شما عضو این کلاس نیستید'); return; }
+  
+  if (examAnswers[currentUser] && examAnswers[currentUser][idx]) {
+    alert('شما قبلاً در این آزمون شرکت کرده‌اید'); return;
+  }
+  
+  var box = $('pageContent');
+  var html = '<div class="timer-box" id="timerBox">زمان باقیمانده: ' + ex.duration + ':00</div>';
+  html += '<div class="exam-hint">توجه: با اتمام زمان آزمون، پاسخ‌ها به‌طور خودکار ارسال می‌شوند.</div>';
+  
+  var qs = ex.questions.split('\n');
+  for (var q = 0; q < qs.length; q++) {
+    var parts = qs[q].split('|');
+    html += '<div class="q-block"><div class="q-text">' + (q+1) + '. ' + parts[0].trim() + '</div>';
+    for (var op = 2; op <= 5; op++) {
+      if (parts[op]) {
+        html += '<label class="option-row">';
+        html += '<input type="radio" name="exam_q_' + idx + '_' + q + '" value="' + (op-1) + '">';
+        html += '<span>' + parts[op].trim() + '</span>';
+        html += '</label>';
+      }
+    }
+    html += '</div>';
+  }
+  html += '<button class="action" onclick="window.submitExam(' + idx + ')">ارسال پاسخ‌ها</button>';
+  box.innerHTML = html;
+  
+  var totalSec = parseInt(ex.duration) * 60;
+  var timer = setInterval(function() {
+    totalSec--;
+    var m = Math.floor(totalSec / 60);
+    var s = totalSec % 60;
+    var tb = $('timerBox');
+    if (tb) {
+            tb.textContent = 'زمان باقیمانده: ' + m + ':' + (s < 10 ? '0' : '') + s;
+      if (totalSec <= 60) tb.classList.remove('green');
+      if (totalSec > 60) tb.classList.add('green');
+    }
+    if (totalSec <= 0) {
+      clearInterval(timer);
+      alert('زمان آزمون تمام شد. پاسخ‌های شما ارسال می‌شود.');
+      window.submitExam(idx);
+    }
+  }, 1000);
+  examTimers[idx] = timer;
+};
+
+window.submitExam = function(examIdx) {
+  var ex = exams[examIdx];
+  var qs = ex.questions.split('\n');
+  var answers = {};
+  for (var q = 0; q < qs.length; q++) {
+    var radios = document.querySelectorAll('input[name="exam_q_' + examIdx + '_' + q + '"]');
+    var selected = null;
+    for (var r = 0; r < radios.length; r++) {
+      if (radios[r].checked) selected = radios[r].value;
+    }
+    if (selected === null) { alert('لطفاً به همه سوالات پاسخ دهید'); return; }
+    answers[q] = selected;
+  }
+  
+  if (!examAnswers[currentUser]) examAnswers[currentUser] = {};
+  examAnswers[currentUser][examIdx] = answers;
+  save();
+  
+  var score = 0;
+  var totalScore = 0;
+  for (var q = 0; q < qs.length; q++) {
+    var parts = qs[q].split('|');
+    var qScore = parseInt(parts[1]) || 0;
+    var correct = parts[6] ? parts[6].trim() : '';
+    totalScore += qScore;
+    if (answers[q] === correct) score += qScore;
+  }
+  
+  var box = $('pageContent');
+  box.innerHTML = '<div class="panel" style="text-align:center"><h3 style="color:#07996c">✅ آزمون شما ثبت شد</h3><p style="color:#5265c8">نمره شما پس از ۱۰ ثانیه اعلام می‌شود...</p><div id="scoreBox"></div></div>';
+  
+  setTimeout(function() {
+    $('scoreBox').innerHTML = '<div style="font-size:30px;font-weight:bold;color:#07996c;margin:20px 0">' + score + ' از ' + totalScore + '</div><p style="color:#5265c8">نمره شما در این آزمون</p>';
+  }, 10000);
+};
+
+window.viewExamResults = function(examIdx) {
+  var out = '<div class="panel"><h3>پاسخ‌های دانش‌آموزان</h3>';
+  var found = false;
+  for (var uname in examAnswers) {
+    if (examAnswers[uname][examIdx]) {
+      found = true;
+      var stuName = uname;
+      for (var s = 0; s < students.length; s++) {
+        if (students[s].username === uname) stuName = students[s].name;
+      }
+      out += '<div class="student"><strong>' + stuName + '</strong>';
+      for (var q in examAnswers[uname][examIdx]) {
+        out += '<div class="answer-item"><b>سوال ' + (parseInt(q)+1) + ':</b> گزینه ' + examAnswers[uname][examIdx][q] + '</div>';
+      }
+      out += '</div>';
+    }
+  }
+  if (!found) out += '<p>هنوز پاسخی ثبت نشده است.</p>';
+  out += '</div>';
+  $('pageContent').innerHTML = out;
+};
+
+// ================== رویدادها ==================
+
+function renderEventAdmin(isMandatory) {
+  var html = '';
+  html += '<h3 style="color:#293e80;margin:0 0 15px">' + (isMandatory ? 'ثبت رویداد الزامی' : 'ثبت رویداد عادی') + '</h3>';
+  html += '<textarea id="evText" placeholder="متن اطلاعیه را وارد کنید..." style="min-height:120px"></textarea>';
+  
+  if (isMandatory) {
+    html += '<label style="margin-top:10px;display:block">گزینه‌های رأی‌گیری (هر گزینه در یک خط):</label>';
+    html += '<textarea id="evOptions" placeholder="آرتا&#10;وحید" style="min-height:80px"></textarea>';
+  }
+  
+  html += '<button class="action" id="btnAddEvent" style="background:linear-gradient(135deg,#07996c,#00664d);margin-top:15px">ثبت رویداد</button>';
+  
+  html += '<h3 style="color:#293e80;margin-top:30px">لیست رویدادها</h3>';
+  var arr = isMandatory ? mandatoryEvents : events;
+  if (!arr.length) {
+    html += '<p style="text-align:center;color:#8892b0">هنوز رویدادی ثبت نشده است.</p>';
+  } else {
+    for (var i = 0; i < arr.length; i++) {
+      html += '<div class="student">';
+      html += '<strong>رویداد ' + (i+1) + '</strong>';
+      html += '<div style="color:#26334e;font-size:14px;margin-top:8px;line-height:1.8">' + arr[i].text + '</div>';
+      if (isMandatory && arr[i].options) {
+        var voteCount = 0;
+        if (arr[i].responses) {
+          for (var u in arr[i].responses) voteCount++;
+        }
+        html += '<div style="margin-top:10px;font-size:12px;color:#5265c8">🗳 گزینه‌ها: ' + arr[i].options.join(' / ') + ' - تعداد رأی: ' + voteCount + '</div>';
+      }
+      html += '</div>';
+    }
+  }
+  
+  return html;
+}
+
+function bindEventAdminEvents(isMandatory) {
+  if ($('btnAddEvent')) {
+    $('btnAddEvent').onclick = function() {
+      var txt = $('evText').value.trim();
+      if (!txt) { alert('متن رویداد را وارد کنید'); return; }
+      
+      if (isMandatory) {
+        var opts = $('evOptions').value.trim().split('\n').filter(function(x){return x.trim();});
+        if (!opts.length) { alert('حداقل یک گزینه وارد کنید'); return; }
+        mandatoryEvents.push({ text: txt, options: opts, responses: {} });
+      } else {
+        events.push({ text: txt });
+      }
+      save();
+      alert('رویداد ثبت شد');
+      openPage(isMandatory ? 'mandatory' : 'event');
+    };
+  }
+}
+
+function renderDeleteEvent(isMandatory) {
+  var html = '';
+  html += '<h3 style="color:#293e80;margin:0 0 15px">حذف ' + (isMandatory ? 'رویداد الزامی' : 'رویداد عادی') + '</h3>';
+  
+  var arr = isMandatory ? mandatoryEvents : events;
+  if (!arr.length) {
+    html += '<p style="text-align:center;color:#8892b0">رویدادی برای حذف وجود ندارد.</p>';
+    return html;
+  }
+  
+  for (var i = 0; i < arr.length; i++) {
+    html += '<div class="student">';
+    html += '<div style="font-size:14px;color:#26334e;margin-bottom:8px;line-height:1.8">' + arr[i].text + '</div>';
+    html += '<button class="action" style="background:linear-gradient(135deg,#e53950,#b71c2b);margin-top:5px" onclick="window.deleteEvent(' + i + ', ' + isMandatory + ')">حذف این رویداد</button>';
+    html += '</div>';
+  }
+  
+  return html;
+}
+
+window.deleteEvent = function(idx, isMandatory) {
+  if (!confirm('آیا از حذف این رویداد مطمئن هستید؟')) return;
+  if (isMandatory) {
+    mandatoryEvents.splice(idx, 1);
+  } else {
+    events.splice(idx, 1);
+  }
+  save();
+  alert('رویداد حذف شد');
+  openPage(isMandatory ? 'delmandatory' : 'delevent');
+};
+
+// ================== آمار رأی‌گیری ==================
+
+function renderVoteStats() {
+  var html = '<h3 style="color:#293e80;margin:0 0 15px">آمار لحظه‌ای رأی‌گیری‌ها</h3>';
+  
+  if (!mandatoryEvents.length) {
+    html += '<p style="text-align:center;color:#8892b0">رویداد الزامی وجود ندارد.</p>';
+    return html;
+  }
+  
+  for (var i = 0; i < mandatoryEvents.length; i++) {
+    var me = mandatoryEvents[i];
+    html += '<div class="student" style="padding:18px">';
+    html += '<strong style="font-size:16px">' + me.text + '</strong>';
+    
+    var counts = {};
+    if (me.options) {
+      for (var k = 0; k < me.options.length; k++) counts[k] = 0;
+    }
+    if (me.responses) {
+      for (var u in me.responses) {
+        var sel = me.responses[u];
+        if (counts[sel] !== undefined) counts[sel]++;
+      }
+    }
+    
+    html += '<div style="margin-top:12px">';
+    if (me.options) {
+      for (var o = 0; o < me.options.length; o++) {
+        html += '<div class="vote-stat">';
+        html += '<span class="vname">' + me.options[o] + '</span>';
+        html += '<span class="vcount">' + counts[o] + ' رأی</span>';
+        html += '</div>';
+      }
+    }
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  return html;
+}
+
+// ================== ابزارک‌ها ==================
+
+function backDashboard() { show('dashboard'); }
+
+function logout() {
+  currentUser = '';
+  role = '';
+  show('home');
+}
+
+function bindGlobalEvents() {
+  if ($('btnStudent')) $('btnStudent').onclick = function(){ loginPage('student'); };
+  if ($('btnTeacher')) $('btnTeacher').onclick = function(){ loginPage('teacher'); };
+  if ($('btnAdmin')) $('btnAdmin').onclick = function(){ loginPage('admin'); };
+
+  if ($('btnLogin')) $('btnLogin').onclick = login;
+  if ($('btnBackHome')) $('btnBackHome').onclick = function(){ show('home'); };
+  if ($('btnBackDash')) $('btnBackDash').onclick = backDashboard;
+
+  if ($('btnLogout')) $('btnLogout').onclick = logout;
+  if ($('btnLogout2')) $('btnLogout2').onclick = logout;
+
+  if ($('password')) {
+    $('password').onkeydown = function(e) {
+      if (e.key === 'Enter') login();
+    };
+  }
+}
+
+window.showMonthReport = showMonthReport;
+
+renderGlassEvents();
+checkMandatoryEvent();
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bindGlobalEvents);
+} else {
+  bindGlobalEvents();
+}
+
+show('home');
+
+})();
+</script>
+</body>
+</html>
